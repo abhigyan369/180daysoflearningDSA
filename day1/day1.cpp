@@ -29,14 +29,24 @@ public:
             else upper[s[i]-'A']++;
         }
 
-        bool odd =0;
+        int odd =0;
         int ctr=0;
         for(int i=0; i<26; i++){
-            if(lower[i]%2==0) ctr += lower[i];
-            else ctr += lower[i]-1; odd=1;
+            if(lower[i]%2==0)
+            ctr += lower[i];    
+            else 
+            {
+                ctr += lower[i]-1; 
+                odd=1;
+            }
 
-            if(upper[i]%2==0) ctr+= upper[i];
-            else ctr += upper[i]-1; odd=1;
+            if(upper[i]%2==0)
+            ctr+= upper[i]; 
+            else
+            {
+                ctr += upper[i]-1; 
+                odd=1;
+            }
         }
         return ctr + odd;
 
