@@ -1,4 +1,4 @@
-/*
+/* abhigyan
 Longest Prefix Suffix
 Difficulty: HardAccuracy: 27.91%Submissions: 110K+Points: 8
 Given a string of characters, find the length of the longest proper prefix which is also a proper suffix.
