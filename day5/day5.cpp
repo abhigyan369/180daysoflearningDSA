@@ -50,3 +50,79 @@ class Solution{
 	    return lps[s.size()-1];
 	}
 };
+
+/*
+Solve this question using KMP algo 
+28. Find the Index of the First Occurrence in a String
+Solved
+Easy
+Topics
+Companies
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+ 
+
+Example 1:
+
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+Explanation: "sad" occurs at index 0 and 6.
+The first occurrence is at index 0, so we return 0.
+Example 2:
+
+Input: haystack = "leetcode", needle = "leeto"
+Output: -1
+Explanation: "leeto" did not occur in "leetcode", so we return -1.*/
+
+class Solution {
+public:
+    void lpsfind(vector<int>& lps, string s) {
+        int pre = 0, suf = 1;
+
+        while (suf < s.size()) {
+            // match
+            if (s[pre] == s[suf]) {
+                lps[suf] = pre + 1;
+                pre++;
+                suf++;
+            }
+            // not match
+            else {
+                if (pre == 0) {
+                    lps[suf] = 0;
+                    suf++;
+                } else {
+                    pre = lps[pre - 1];
+                }
+            }
+        }
+    }
+
+    int strStr(string haystack, string needle) {
+        if (needle.empty()) return 0;  // Edge case: empty needle
+
+        vector<int> lps(needle.size(), 0);
+        lpsfind(lps, needle);
+
+        int first = 0, second = 0;
+        while (first < haystack.size()) {
+            if (needle[second] == haystack[first]) {
+                first++;
+                second++;
+            } else {
+                if (second == 0) {
+                    first++;
+                } else {
+                    second = lps[second - 1];
+                }
+            }
+
+            // Check if we have found the entire needle
+            if (second == needle.size()) {
+                return first - second;
+            }
+        }
+
+        return -1;
+    }
+};
